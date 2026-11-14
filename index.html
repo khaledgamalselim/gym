@@ -647,12 +647,13 @@
 
 <!-- ===== FIREBASE & LOGIC ===== -->
 <script type="module">
+  // 1. استيراد دوال Firebase من الـ CDN
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  // بيانات Firebase الخاصة بك
+  // 2. إعدادات Firebase الخاصة بك (مدمجة هنا)
   const firebaseConfig = {
     apiKey: "AIzaSyA3VvjgNPQ92lt-6QpNmEfmX291HD7Z6FU",
     authDomain: "gym0-610ae.firebaseapp.com",
@@ -663,10 +664,11 @@
     measurementId: "G-JCB0EXMDFP"
   };
 
+  // 3. تهيئة Firebase والخدمات
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
-  const db = getFirestore(app);
+  const db = getFirestore(app); // ربط قاعدة البيانات Firestore
 
   // DOM Elements
   const $ = (id) => document.getElementById(id);
