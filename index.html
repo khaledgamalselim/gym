@@ -736,6 +736,7 @@
 <!-- ===== FIREBASE ===== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
   import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -749,30 +750,24 @@
   } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
   /* ============================================================
-     ⚠️ استبدل بيانات Firebase دي ببيانات مشروعك من Firebase Console
-     Project Settings → Your apps → SDK setup and configuration
-     ============================================================ */// 
-    
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+     ✅ بيانات Firebase الخاصة بمشروعك
+     ============================================================ */
+  const firebaseConfig = {
+    apiKey: "AIzaSyA3VvjgNPQ92lt-6QpNmEfmX291HD7Z6FU",
+    authDomain: "gym0-610ae.firebaseapp.com",
+    projectId: "gym0-610ae",
+    storageBucket: "gym0-610ae.firebasestorage.app",
+    messagingSenderId: "446752860624",
+    appId: "1:446752860624:web:8b50784cf5e7f3de64f1d5",
+    measurementId: "G-JCB0EXMDFP"
+  };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA3VvjgNPQ92lt-6QpNmEfmX291HD7Z6FU",
-  authDomain: "gym0-610ae.firebaseapp.com",
-  projectId: "gym0-610ae",
-  storageBucket: "gym0-610ae.firebasestorage.app",
-  messagingSenderId: "446752860624",
-  appId: "1:446752860624:web:8b50784cf5e7f3de64f1d5",
-  measurementId: "G-JCB0EXMDFP"
-};
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
   /* ==================== DOM ==================== */
   const $ = (id) => document.getElementById(id);
   const navbar = $('navbar');
@@ -866,7 +861,8 @@ const analytics = getAnalytics(app);
     'auth/popup-closed-by-user': 'تم إغلاق نافذة Google',
     'auth/network-request-failed': 'خطأ في الاتصال بالإنترنت',
     'auth/missing-email': 'يرجى إدخال البريد الإلكتروني',
-    'auth/operation-not-allowed': 'طريقة تسجيل الدخول غير مفعّلة في Firebase'
+    'auth/operation-not-allowed': 'طريقة تسجيل الدخول غير مفعّلة في Firebase',
+    'auth/unauthorized-domain': 'النطاق غير مصرح به في Firebase'
   };
   const getErr = (code) => errorMap[code] || 'حدث خطأ، حاول مرة أخرى';
 
