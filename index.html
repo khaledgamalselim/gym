@@ -11,7 +11,7 @@
 
 <style>
   :root{
-    --primary:#ffd700; /* لون أصفر مطابق للصور */
+    --primary:#ffd700;
     --primary-dark:#e6c200;
     --bg:#0a0a0a;
     --bg-2:#111;
@@ -244,7 +244,7 @@
   }
   .floating-wa:hover { transform: scale(1.1); }
 
-  /* ===== Modals (Auth, Payment, Dashboard) ===== */
+  /* ===== Modals ===== */
   .modal-overlay{
     position:fixed;inset:0;background:rgba(0,0,0,.85);
     backdrop-filter:blur(6px);z-index:2000;
@@ -270,7 +270,7 @@
   
   /* Auth Tabs */
   .auth-tabs{display:flex;background:var(--bg);border-radius:12px;padding:5px;margin-bottom:24px}
-  .auth-tab{flex:1;padding:11px;border-radius:9px;font-weight:700;font-size:.9rem;color:var(--muted);transition:.2s}
+  .auth-tab{flex:1;padding:11px;border-radius:9px;font-weight:700;font-size:.85rem;color:var(--muted);transition:.2s}
   .auth-tab.active{background:var(--primary);color:#000}
   .auth-form{display:none;gap:14px;flex-direction:column}
   .auth-form.active{display:flex}
@@ -327,25 +327,13 @@
   .stat-box .val{font-size:2rem;font-weight:900;color:var(--primary)}
   .stat-box .val.expired{color:var(--error)}
   
-  /* QR Code Display in Dashboard */
-  #qrcode-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    padding: 15px;
-    background: #fff;
-    border-radius: 12px;
-    width: fit-content;
-    margin-inline: auto;
-  }
-
   /* Payment Details */
   .instapay-box{background:var(--bg-3);padding:20px;border-radius:12px;text-align:center;margin-bottom:20px;border:1px dashed var(--primary)}
   .instapay-box h3{color:var(--primary);margin-bottom:10px}
   .instapay-box .number{font-size:1.5rem;font-weight:900;letter-spacing:2px;margin-bottom:10px}
   .instapay-box p{font-size:.9rem;color:var(--muted)}
 
-  /* QR Scanner Page (Separate View) */
+  /* QR Scanner Page */
   #scannerPage {
     position: fixed; inset: 0; background: var(--bg); z-index: 9999;
     display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
@@ -389,7 +377,7 @@
 </head>
 <body>
 
-<!-- ===== SEPARATE QR SCANNER PAGE (Hidden by default, shows when URL has ?checkin=true) ===== -->
+<!-- ===== SEPARATE QR SCANNER PAGE ===== -->
 <div id="scannerPage">
   <h2 style="color:var(--primary);margin-bottom:20px;text-align:center">تسجيل الحضور 📷</h2>
   <div id="qrResult" style="text-align:center;font-weight:bold;font-size:1.2rem;margin-top:15px;min-height:40px;line-height:1.8"></div>
@@ -494,8 +482,6 @@
     <p>اختر الباقة التي تناسبك وابدأ رحلتك</p>
   </div>
   <div class="pricing-grid">
-    
-    <!-- Plan 1 -->
     <div class="price-card">
       <h3>اشتراك شهر</h3>
       <div class="price-amount">250 <span>جنيه</span></div>
@@ -508,7 +494,6 @@
       <button class="btn btn-ghost btn-block plan-btn" data-plan="شهر" data-price="250">اشترك الآن</button>
     </div>
 
-    <!-- Plan 2 -->
     <div class="price-card featured">
       <div class="price-badge">الأكثر طلباً</div>
       <h3>3 أشهر</h3>
@@ -523,7 +508,6 @@
       <button class="btn btn-primary btn-block plan-btn" data-plan="3 شهور" data-price="600">اشترك الآن</button>
     </div>
 
-    <!-- Plan 3 -->
     <div class="price-card">
       <h3>VIP - 6 شهور</h3>
       <div class="price-amount">1500 <span>جنيه</span></div>
@@ -536,7 +520,6 @@
       </ul>
       <button class="btn btn-ghost btn-block plan-btn" data-plan="VIP 6 شهور" data-price="1500">اشترك الآن</button>
     </div>
-
   </div>
 </section>
 
@@ -592,17 +575,20 @@
     <button class="modal-close" id="modalClose">✕</button>
     <h2>مرحباً بك 👋</h2>
     <div class="auth-tabs">
-      <button class="auth-tab active" data-tab="login">تسجيل الدخول</button>
-      <button class="auth-tab" data-tab="signup">إنشاء حساب</button>
+      <button class="auth-tab active" data-tab="login">دخول</button>
+      <button class="auth-tab" data-tab="signup">حساب جديد</button>
+      <button class="auth-tab" data-tab="phone">رقم الهاتف</button>
     </div>
     <div class="auth-msg" id="authMsg"></div>
     
+    <!-- Login Form -->
     <form class="auth-form active" id="loginForm">
       <div class="field"><label>البريد الإلكتروني</label><input type="email" id="loginEmail" required placeholder="you@example.com" /></div>
       <div class="field"><label>كلمة المرور</label><input type="password" id="loginPassword" required placeholder="••••••••" /></div>
       <button type="submit" class="btn btn-primary btn-block" id="loginSubmit">دخول</button>
     </form>
 
+    <!-- Signup Form -->
     <form class="auth-form" id="signupForm">
       <div class="field"><label>الاسم الكامل</label><input type="text" id="signupName" required placeholder="اسمك الكامل" /></div>
       <div class="field"><label>البريد الإلكتروني</label><input type="email" id="signupEmail" required placeholder="you@example.com" /></div>
@@ -610,10 +596,27 @@
       <button type="submit" class="btn btn-primary btn-block" id="signupSubmit">إنشاء الحساب</button>
     </form>
 
-    <!-- فاصل -->
-    <div class="divider">أو</div>
+    <!-- Phone Form -->
+    <form class="auth-form" id="phoneForm">
+      <div class="field">
+        <label>رقم الهاتف (مع رمز الدولة)</label>
+        <input type="tel" id="phoneNumber" required placeholder="+201012345678" dir="ltr" style="text-align:left" />
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="sendOtpBtn">إرسال كود التحقق</button>
+      
+      <div id="otpSection" style="display:none; flex-direction:column; gap:14px; margin-top:10px;">
+        <div class="field">
+          <label>كود التحقق (OTP)</label>
+          <input type="text" id="otpCode" placeholder="123456" dir="ltr" style="text-align:left" />
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="verifyOtpBtn">تأكيد الكود والدخول</button>
+      </div>
+      <!-- حاوية الـ Recaptcha المخفية -->
+      <div id="recaptcha-container"></div>
+    </form>
 
-    <!-- زر تسجيل الدخول بجوجل -->
+    <!-- Divider & Google -->
+    <div class="divider">أو</div>
     <button type="button" class="btn btn-google btn-block" id="googleLoginBtn">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -631,22 +634,17 @@
   <div class="modal-box">
     <button class="modal-close" id="paymentClose">✕</button>
     <h2>إتمام الاشتراك 💳</h2>
-    
-    <!-- User Info Display -->
     <div style="background:var(--bg-3);padding:15px;border-radius:10px;margin-bottom:20px;border:1px solid var(--border)">
       <p style="color:var(--muted);font-size:0.85rem;margin-bottom:5px">بيانات المشترك:</p>
       <p style="font-weight:800;font-size:1.1rem;color:var(--primary)" id="payUserName"></p>
       <p style="color:var(--muted);font-size:0.9rem" id="payUserEmail"></p>
     </div>
-
     <p style="text-align:center;color:var(--muted);margin-bottom:20px">لقد اخترت باقة <strong id="selectedPlanName" style="color:var(--primary)"></strong></p>
-    
     <div class="instapay-box">
       <h3>الدفع عبر InstaPay</h3>
       <div class="number">01080554030</div>
       <p>كابتن أحمد</p>
     </div>
-
     <div style="background:rgba(255,215,0,0.1);border:1px solid var(--primary);padding:15px;border-radius:10px;margin-bottom:20px;font-size:0.9rem">
       <strong>خطوات الدفع:</strong><br>
       1. قم بتحويل مبلغ <strong id="selectedPlanPrice" style="color:var(--primary)"></strong> جنيه عبر InstaPay.<br>
@@ -654,7 +652,6 @@
       3. اضغط على الزر أدناه لإرسال السكرين شوت على واتساب كابتن أحمد.<br>
       4. انتظر تأكيد الدفع من الكابتن لتفعيل اشتراكك.
     </div>
-
     <a href="#" id="sendProofBtn" target="_blank" class="btn btn-whatsapp btn-block" style="background:var(--whatsapp);color:#fff;font-size:1.1rem;padding:15px">
       إرسال إثبات الدفع على واتساب
     </a>
@@ -666,7 +663,6 @@
   <div class="modal-box">
     <button class="modal-close" id="dashClose">✕</button>
     <h2>لوحة تحكم العميل 📊</h2>
-    
     <div class="dash-stats">
       <div class="stat-box">
         <h4>الأيام المتبقية</h4>
@@ -677,12 +673,10 @@
         <div class="val" id="dashDaysTrained">0</div>
       </div>
     </div>
-
     <div style="background:var(--bg-3);padding:15px;border-radius:10px;margin-bottom:20px;text-align:center">
       <p style="color:var(--muted);font-size:0.9rem">حالة الاشتراك</p>
       <h3 id="dashStatus" style="color:var(--success)">نشط</h3>
     </div>
-
     <button class="btn btn-primary btn-block" id="dashRenewBtn" style="display:none">تجديد الاشتراك الآن</button>
   </div>
 </div>
@@ -692,14 +686,13 @@
 
 <!-- ===== FIREBASE & LOGIC ===== -->
 <script type="module">
-  // 1. استيراد دوال Firebase من الـ CDN
+  // 1. استيراد دوال Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-  // تم إضافة GoogleAuthProvider و signInWithPopup هنا
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  // 2. إعدادات Firebase الخاصة بك (مدمجة هنا)
+  // 2. إعدادات Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyA3VvjgNPQ92lt-6QpNmEfmX291HD7Z6FU",
     authDomain: "gym0-610ae.firebaseapp.com",
@@ -710,11 +703,11 @@
     measurementId: "G-JCB0EXMDFP"
   };
 
-  // 3. تهيئة Firebase والخدمات
+  // 3. تهيئة Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
-  const db = getFirestore(app); // ربط قاعدة البيانات Firestore
+  const db = getFirestore(app);
 
   // DOM Elements
   const $ = (id) => document.getElementById(id);
@@ -727,15 +720,14 @@
   const userName = $('userName');
   const userAvatar = $('userAvatar');
 
-  // Modals
   const authModal = $('authModal');
   const paymentModal = $('paymentModal');
   const dashboardModal = $('dashboardModal');
   const toast = $('toast');
 
-  // Auth Forms
   const loginForm = $('loginForm');
   const signupForm = $('signupForm');
+  const phoneForm = $('phoneForm');
   const tabs = document.querySelectorAll('.auth-tab');
   const authMsg = $('authMsg');
   const googleLoginBtn = $('googleLoginBtn');
@@ -777,6 +769,7 @@
       tab.classList.add('active');
       loginForm.classList.toggle('active', tab.dataset.tab === 'login');
       signupForm.classList.toggle('active', tab.dataset.tab === 'signup');
+      phoneForm.classList.toggle('active', tab.dataset.tab === 'phone');
       authMsg.className = 'auth-msg';
     });
   });
@@ -794,7 +787,6 @@
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(cred.user, { displayName: name });
       
-      // إنشاء مستند للمستخدم في Firestore برصيد 0
       await setDoc(doc(db, "users", email), {
         name: name,
         email: email,
@@ -835,12 +827,10 @@
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       
-      // التحقق مما إذا كان المستخدم موجوداً في قاعدة البيانات
       const userRef = doc(db, "users", user.email);
       const userSnap = await getDoc(userRef);
       
       if (!userSnap.exists()) {
-        // إذا لم يكن موجوداً، نقوم بإنشاء مستند جديد له
         await setDoc(userRef, {
           name: user.displayName || user.email.split('@')[0],
           email: user.email,
@@ -855,30 +845,115 @@
       closeAllModals();
     } catch (error) {
       console.error(error);
-      if (error.code === 'auth/popup-closed-by-user') {
-        // المستخدم أغلق النافذة، لا داعي لإظهار خطأ
-      } else if (error.code === 'auth/account-exists-with-different-credential') {
-        showAuthMsg('هذا البريد مسجل بالفعل بكلمة مرور. يرجى تسجيل الدخول بالطريقة العادية.');
-      } else {
-        showAuthMsg('حدث خطأ أثناء تسجيل الدخول بجوجل. تأكد من تفعيل الخدمة في Firebase.');
+      if (error.code !== 'auth/popup-closed-by-user') {
+        showAuthMsg('حدث خطأ أثناء تسجيل الدخول بجوجل.');
       }
     }
   });
 
+  // ==========================================
+  // PHONE LOGIN LOGIC (OTP)
+  // ==========================================
+  let confirmationResult = null;
+
+  // إعداد reCAPTCHA
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    'size': 'invisible',
+    'callback': (response) => {
+      // reCAPTCHA solved, allow signInWithPhoneNumber.
+    }
+  });
+
+  $('sendOtpBtn').addEventListener('click', async () => {
+    const phoneNumber = $('phoneNumber').value.trim();
+    if (!phoneNumber) {
+      showAuthMsg('يرجى إدخال رقم الهاتف مع رمز الدولة (مثال: +201012345678)');
+      return;
+    }
+
+    try {
+      $('sendOtpBtn').textContent = 'جاري الإرسال...';
+      $('sendOtpBtn').disabled = true;
+      
+      confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+      
+      $('otpSection').style.display = 'flex';
+      $('sendOtpBtn').style.display = 'none';
+      showAuthMsg('تم إرسال الكود! يرجى إدخاله في الحقل أدناه.', 'success');
+    } catch (error) {
+      console.error(error);
+      showAuthMsg('حدث خطأ أثناء إرسال الكود. تأكد من الرقم وصيغته.');
+      $('sendOtpBtn').textContent = 'إرسال كود التحقق';
+      $('sendOtpBtn').disabled = false;
+    }
+  });
+
+  $('verifyOtpBtn').addEventListener('click', async () => {
+    const code = $('otpCode').value.trim();
+    if (!code) {
+      showAuthMsg('يرجى إدخال كود التحقق');
+      return;
+    }
+
+    try {
+      $('verifyOtpBtn').textContent = 'جاري التحقق...';
+      $('verifyOtpBtn').disabled = true;
+
+      const result = await confirmationResult.confirm(code);
+      const user = result.user;
+      
+      // استخدام رقم الهاتف كـ ID في قاعدة البيانات
+      const userId = user.phoneNumber;
+      const userRef = doc(db, "users", userId);
+      const userSnap = await getDoc(userRef);
+      
+      if (!userSnap.exists()) {
+        await setDoc(userRef, {
+          name: "عضو جديد",
+          email: userId, // نضع رقم الهاتف في حقل الإيميل لتسهيل التعامل
+          phone: userId,
+          remainingDays: 0,
+          daysTrained: 0,
+          lastCheckIn: null,
+          createdAt: serverTimestamp()
+        });
+      }
+      
+      showToast('تم تسجيل الدخول برقم الهاتف بنجاح!');
+      closeAllModals();
+      phoneForm.reset();
+      $('otpSection').style.display = 'none';
+      $('sendOtpBtn').style.display = 'block';
+      $('sendOtpBtn').textContent = 'إرسال كود التحقق';
+      $('sendOtpBtn').disabled = false;
+      $('verifyOtpBtn').textContent = 'تأكيد الكود والدخول';
+      $('verifyOtpBtn').disabled = false;
+
+    } catch (error) {
+      console.error(error);
+      showAuthMsg('الكود غير صحيح أو انتهت صلاحيته. حاول مرة أخرى.');
+      $('verifyOtpBtn').textContent = 'تأكيد الكود والدخول';
+      $('verifyOtpBtn').disabled = false;
+    }
+  });
+
+  // Logout
   logoutBtn.addEventListener('click', () => signOut(auth).then(() => showToast('تم تسجيل الخروج')));
 
   // Auth State & Dashboard Data
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      const name = user.displayName || user.email.split('@')[0];
+      // نستخدم الإيميل أو رقم الهاتف كمعرف
+      const userId = user.email || user.phoneNumber;
+      const name = user.displayName || (user.email ? user.email.split('@')[0] : 'عضو جديد');
+      
       userName.textContent = name;
       userAvatar.textContent = name.charAt(0).toUpperCase();
       userChip.classList.add('active');
       loginBtn.style.display = 'none';
       logoutBtn.style.display = 'inline-flex';
       
-      // Fetch user data from Firestore
-      await fetchUserData(user.email);
+      await fetchUserData(userId);
     } else {
       userChip.classList.remove('active');
       loginBtn.style.display = 'inline-flex';
@@ -886,9 +961,9 @@
     }
   });
 
-  // Fetch User Data for Dashboard
-  async function fetchUserData(email) {
-    const userRef = doc(db, "users", email);
+  // Fetch User Data
+  async function fetchUserData(userId) {
+    const userRef = doc(db, "users", userId);
     const userSnap = await getDoc(userRef);
     
     if (userSnap.exists()) {
@@ -909,10 +984,9 @@
         renewBtn.style.display = 'block';
       }
     } else {
-      // If user exists in Auth but not in Firestore
-      await setDoc(doc(db, "users", email), {
-        name: auth.currentUser.displayName || email.split('@')[0],
-        email: email,
+      await setDoc(doc(db, "users", userId), {
+        name: auth.currentUser.displayName || 'عضو جديد',
+        email: userId,
         remainingDays: 0,
         daysTrained: 0,
         lastCheckIn: null,
@@ -921,7 +995,7 @@
     }
   }
 
-  // Open Dashboard on User Chip Click
+  // Open Dashboard
   userChip.addEventListener('click', () => {
     if (auth.currentUser) {
       dashboardModal.classList.add('open');
@@ -940,17 +1014,15 @@
       
       const planName = btn.dataset.plan;
       const planPrice = btn.dataset.price;
-      const userNameStr = auth.currentUser.displayName || 'غير محدد';
-      const userEmailStr = auth.currentUser.email;
+      const userNameStr = auth.currentUser.displayName || 'عضو جديد';
+      const userEmailStr = auth.currentUser.email || auth.currentUser.phoneNumber;
       
-      // Populate Payment Modal
       $('payUserName').textContent = userNameStr;
       $('payUserEmail').textContent = userEmailStr;
       $('selectedPlanName').textContent = planName;
       $('selectedPlanPrice').textContent = planPrice;
       
-      // Prepare WhatsApp message
-      const message = `مرحباً كابتن أحمد،\nأنا: ${userNameStr}\nالبريد الإلكتروني: ${userEmailStr}\nأريد الاشتراك في باقة (${planName}) بمبلغ ${planPrice} جنيه.\nلقد قمت بالتحويل عبر InstaPay وهذا هو إثبات الدفع:`;
+      const message = `مرحباً كابتن أحمد،\nأنا: ${userNameStr}\nرقم الهاتف/الإيميل: ${userEmailStr}\nأريد الاشتراك في باقة (${planName}) بمبلغ ${planPrice} جنيه.\nلقد قمت بالتحويل عبر InstaPay وهذا هو إثبات الدفع:`;
       $('sendProofBtn').href = `https://wa.me/201080554030?text=${encodeURIComponent(message)}`;
       
       paymentModal.classList.add('open');
@@ -958,9 +1030,7 @@
     });
   });
 
-  // ==========================================
-  // STATIC QR CODE GENERATION (Main Page)
-  // ==========================================
+  // STATIC QR CODE GENERATION
   const staticQrContainer = $('static-qr');
   if (staticQrContainer) {
     const baseUrl = window.location.origin + window.location.pathname;
@@ -976,16 +1046,12 @@
     });
   }
 
-  // ==========================================
   // SEPARATE PAGE LOGIC (QR CHECK-IN)
-  // ==========================================
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('checkin') === 'true') {
-    // Show the scanner page and hide the main site
     $('scannerPage').classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling main body
+    document.body.style.overflow = 'hidden';
     
-    // Wait for auth state to be ready
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         $('qrResult').innerHTML = `
@@ -995,17 +1061,17 @@
         return;
       }
 
-      // User is logged in, process check-in automatically
-      await processCheckIn(user.email);
+      const userId = user.email || user.phoneNumber;
+      await processCheckIn(userId);
     });
   }
 
-  async function processCheckIn(email) {
+  async function processCheckIn(userId) {
     $('qrResult').textContent = "جاري التحقق...";
     $('qrResult').style.color = "var(--primary)";
 
     try {
-      const userRef = doc(db, "users", email);
+      const userRef = doc(db, "users", userId);
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
@@ -1017,14 +1083,12 @@
       const userData = userSnap.data();
       const now = new Date();
       
-      // 1. Check Balance
       if (userData.remainingDays <= 0) {
         $('qrResult').textContent = "❌ عذراً، رصيد اشتراكك انتهى. يرجى التجديد.";
         $('qrResult').style.color = "var(--error)";
         return;
       }
 
-      // 2. Check 24-Hour Rule
       if (userData.lastCheckIn) {
         const lastCheckIn = userData.lastCheckIn.toDate();
         const diffHours = (now - lastCheckIn) / (1000 * 60 * 60);
@@ -1037,7 +1101,6 @@
         }
       }
 
-      // 3. Deduct Day and Record Check-in
       await updateDoc(userRef, {
         remainingDays: userData.remainingDays - 1,
         daysTrained: (userData.daysTrained || 0) + 1,
@@ -1047,9 +1110,11 @@
       $('qrResult').textContent = `✅ تم تسجيل الحضور بنجاح! متبقي ${userData.remainingDays - 1} يوم.`;
       $('qrResult').style.color = "var(--success)";
       
-      // Update dashboard if open
-      if (auth.currentUser && auth.currentUser.email === email) {
-        fetchUserData(email);
+      if (auth.currentUser) {
+        const currentUserId = auth.currentUser.email || auth.currentUser.phoneNumber;
+        if (currentUserId === userId) {
+          fetchUserData(userId);
+        }
       }
 
     } catch (error) {
